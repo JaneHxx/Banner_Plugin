@@ -1,0 +1,108 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0
+}
+
+body {
+	background-color: #2d2d2d
+}
+
+.banner-wrapper {
+	width: 738px;
+	height: 430px;
+	margin: 150px auto 0;
+	position: relative;
+	overflow: hidden
+}
+
+.banner-wrapper .pic {
+	width: 738px;
+	height: 430px;
+	position: relative
+}
+
+.banner-wrapper .pic ul li {
+	list-style: none;
+	width: 738px;
+	height: 430px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none
+}
+
+.banner-wrapper .pic ul li.first {
+	display: block
+}
+
+.banner-wrapper .but {
+	width: 104px;
+	height: 10px;
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	margin-left: -52px
+}
+
+.banner-wrapper .but ul li {
+	list-style: none;
+	width: 10px;
+	height: 10px;
+	float: left;
+	margin: 0 5px;
+	background-color: #fff;
+	border-radius: 50%
+}
+
+.banner-wrapper .but ul li.first {
+	background-color: red
+}
+
+.banner-wrapper .picnav {
+	width: 625px;
+	height: 86px;
+	background-color: rgba(255, 255, 255, .8);
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	margin-left: -312px
+}
+
+
+.banner-wrapper .picnav ul {
+	width: auto;
+    height: 100%;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.banner-wrapper .picnav ul::after{
+	content: '';
+	clear: both;
+	display: block;
+}
+
+/*.banner-wrapper .picnav ul::-webkit-scrollbar{
+	opacity: 0;
+}*/
+
+.banner-wrapper .picnav ul li {
+	list-style: none;
+	width: 115px;
+	height: 75px;
+	float: left;
+	margin: 5px
+}
+
+.banner-wrapper .picnav ul li.first {
+	border-bottom: 4px solid red
+}
+
+.banner-wrapper .picnav ul li img {
+	width: 115px;
+	height: 70px
+}
