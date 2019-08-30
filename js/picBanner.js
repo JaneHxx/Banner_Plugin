@@ -1,7 +1,7 @@
 (function ($) {
 	
 	var opt = {
-		images: [],
+		len: 0,
 		scrollingSpeed: 700
 	};
 	
@@ -20,29 +20,28 @@
 		var windowHeight = $(window).height(),
         $body = $("body");
       	$body.css("height", windowHeight); 
-		
-		that.banner.find('.picnav').on('click', 'ul li', function () {
+		that.elem.on('click', '.slidenav ul li', function () {
 			var i = $(this).index();
 			that.bannerOrder = Number(i);
 			$(this).addClass('first').siblings('li').removeClass('first');
 			that.slideAnimate();
 		});
 		
-		var $pic = that.banner.find('.pic');
+		var $slide = that.elem.find('.slide');
 		// 监听滑动事件
-		$pic.on('touchstart', function (e) {
+		$slide.on('touchstart', function (e) {
 			e = window.event || e;
 			e.preventDefault();
 			that.touchstart(e);
 		});
 		
-		$pic.on('touchmove', function (e) {
+		$slide.on('touchmove', function (e) {
 			e = window.event || e;
 			e.preventDefault();
 			that.touchmove(e);
 		});
 		
-		$pic.on('touchend', function (e) {
+		$slide.on('touchend', function (e) {
 			e = window.event || e;
 			e.preventDefault();
 			that.touchend(e);
@@ -55,33 +54,20 @@
 		create: function () {
 			let that = this;
 			that.banner = $('<div class="banner-wrapper"></div>');
-			var picWrapper = $('<div class="pic"></div>');
-			var picNavWrapper = $('<div class="picnav"></div>');
-			picWrapper.appendTo(that.banner);
-			picNavWrapper.appendTo(that.banner);
-			that.banner.appendTo(that.elem);
-			that.traverseImages(opt.images, 'url', 'alt');
+			var slideWrapper = $('<div class="slide"><ul></ul></div>');
+			var slideNavWrapper = $('<div class="slidenav"></div>');
+			slideWrapper.appendTo(that.banner);
+			slideNavWrapper.appendTo(that.banner);
+			that.elem.wrapInner(that.banner);
+			that.t();
 		},
-		traverseImages: function (imagesArr, imgUrl = 'imgUrl', imgAlt = 'imgAlt') {
+		t: function (imagesArr, imgUrl = 'imgUrl', imgAlt = 'imgAlt') {
 			var that = this;
-			var pic = that.banner.find('.pic');
-			var picNav = that.banner.find('.picnav');
-			var picUl = $('<ul></ul>');
-			for (var i = 0; i < imagesArr.length; i++) {
-				var liElem = $('<li></li>');
-				var vimg = imagesArr[i];
-				var imgAlt = vimg[imgAlt] || '图片';
-				var imgElem = $('<img src="'+vimg[imgUrl]+'" alt="'+imgAlt+'" />');
-				if (i == 0) {
-					liElem.addClass('first');
-				}
-				imgElem.appendTo(liElem);
-				liElem.appendTo(picUl);
-			}
-			picUl.appendTo(pic);
-			picUl.clone().appendTo(picNav);
-			var picUlWidth = Number(pic.width() * opt.images.length);
-			picUl.css('width', picUlWidth + 'px');
+			that.elem.find('.slide-item').wrap('<li></li>');
+			that.elem.find('.slidenav').append(that.elem.find('.slide ul').clone());
+			that.elem.find('.slidenav ul li:first-child').addClass('first');
+			opt.len = that.elem.find('.slide ul li').length;
+			that.elem.find('.slide ul').css('width', opt.len * that.elem.find('.slide ul').width() + 'px');
 		},
 		// 手指按下
 		touchstart: function (e) {
@@ -94,7 +80,7 @@
 			var that = this;
 			var moveX = e.changedTouches[0].pageX;
 			var dX = moveX - that.slideParams.startX;
-			var liLen = that.banner.find('.pic ul li').length;
+			var liLen = that.elem.find('.slide ul li').length;
 			if (!that.slideParams.flag) return;
 			// 向左滑动
 			if (dX <= -2) {
@@ -107,15 +93,15 @@
 					that.bannerOrder -= 1;
 				}
 			}
-			that.banner.find('.picnav ul li').eq(that.bannerOrder).addClass('first').siblings().removeClass('first');
+			that.elem.find('.slidenav ul li').eq(that.bannerOrder).addClass('first').siblings().removeClass('first');
 			that.slideAnimate();
 			that.slideParams.flag = false;
 		},
 		// 滑动动画
 		slideAnimate: function () {
 			var that = this;
-			var picUl = that.banner.find('.pic ul');
-			picUl.animate({marginLeft: '-'+ Number(picUl.width() / opt.images.length * (that.bannerOrder)) +'px'}, opt.scrollingSpeed);
+			var slideUl = that.elem.find('.slide ul');
+			slideUl.animate({marginLeft: '-'+ Number(slideUl.width() / opt.len * (that.bannerOrder)) +'px'}, opt.scrollingSpeed);
 		},
 		// 滑动结束
 		touchend : function (e) {

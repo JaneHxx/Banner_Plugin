@@ -16,27 +16,27 @@ body {
 	overflow: hidden
 }
 
-.banner-wrapper .pic {
+.banner-wrapper .slide {
 	width: 738px;
 	height: 430px;
 	position: relative
 }
 
-.banner-wrapper .pic ul {
+.banner-wrapper .slide ul {
 	width: 100%;
 	height: 100%;
 	white-space: nowrap;
 	transform: translateX(0)
 }
 
-.banner-wrapper .pic ul li {
+.banner-wrapper .slide ul li {
 	list-style: none;
 	width: 738px;
 	height: 430px;
 	float: left
 }
 
-.banner-wrapper .pic ul li.first {
+.banner-wrapper .slide ul li.first {
 	display: block
 }
 
@@ -63,7 +63,7 @@ body {
 	background-color: red
 }
 
-.banner-wrapper .picnav {
+.banner-wrapper .slidenav {
 	width: 625px;
 	height: 86px;
 	background-color: rgba(255, 255, 255, .8);
@@ -74,7 +74,7 @@ body {
 }
 
 
-.banner-wrapper .picnav ul {
+.banner-wrapper .slidenav ul {
 	width: auto;
     height: 100%;
     white-space: nowrap;
@@ -84,17 +84,17 @@ body {
     flex-wrap: nowrap;
 }
 
-.banner-wrapper .picnav ul::after{
+.banner-wrapper .slidenav ul::after{
 	content: '';
 	clear: both;
 	display: block;
 }
 
-/*.banner-wrapper .picnav ul::-webkit-scrollbar{
+/*.banner-wrapper .slidenav ul::-webkit-scrollbar{
 	opacity: 0;
 }*/
 
-.banner-wrapper .picnav ul li {
+.banner-wrapper .slidenav ul li {
 	list-style: none;
 	width: 115px;
 	height: 75px;
@@ -102,11 +102,11 @@ body {
 	margin: 5px
 }
 
-.banner-wrapper .picnav ul li.first {
+.banner-wrapper .slidenav ul li.first {
 	border-bottom: 4px solid red
 }
 
-.banner-wrapper .picnav ul li img {
+.banner-wrapper .slidenav ul li img {
 	width: 115px;
 	height: 70px
 }
