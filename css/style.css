@@ -22,14 +22,18 @@ body {
 	position: relative
 }
 
+.banner-wrapper .pic ul {
+	width: 100%;
+	height: 100%;
+	white-space: nowrap;
+	transform: translateX(0)
+}
+
 .banner-wrapper .pic ul li {
 	list-style: none;
 	width: 738px;
 	height: 430px;
-	position: absolute;
-	left: 0;
-	top: 0;
-	display: none
+	float: left
 }
 
 .banner-wrapper .pic ul li.first {

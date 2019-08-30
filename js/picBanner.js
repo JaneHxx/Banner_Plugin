@@ -1,11 +1,16 @@
 (function ($) {
 	
+	var opt = {
+		images: [],
+		scrollingSpeed: 700
+	};
+	
 	function DSlide (elem, options) {
 		let that = this;
 		var _default = {
 			images: []
 		};
-		that.options = Object.assign(_default, options);
+		opt = Object.assign(opt, options);
 		that.elem = $(elem);
 		that.banner = null;
 		that.slideParams = {flag: false, startX: 0};
@@ -20,7 +25,7 @@
 			var i = $(this).index();
 			that.bannerOrder = Number(i);
 			$(this).addClass('first').siblings('li').removeClass('first');
-			that.banner.find('.pic ul li').eq(i).fadeIn().siblings().fadeOut();
+			that.slideAnimate();
 		});
 		
 		var $pic = that.banner.find('.pic');
@@ -55,17 +60,13 @@
 			picWrapper.appendTo(that.banner);
 			picNavWrapper.appendTo(that.banner);
 			that.banner.appendTo(that.elem);
-			that.traverseImages(that.options.images, 'url', 'alt');
+			that.traverseImages(opt.images, 'url', 'alt');
 		},
 		traverseImages: function (imagesArr, imgUrl = 'imgUrl', imgAlt = 'imgAlt') {
 			var that = this;
-			var picWrapper = that.banner.find('.pic');
-			var picNavWrapper = that.banner.find('.picnav');
-			var picUlWrapper = $('<ul></ul>');
-			var picnavUlWrapper = $('<ul></ul>');
-//			var picImgArr = JSON.stringify(imagesArr);
-//			picImgArr = JSON.parse(picImgArr);
-//			picImgArr.reverse();
+			var pic = that.banner.find('.pic');
+			var picNav = that.banner.find('.picnav');
+			var picUl = $('<ul></ul>');
 			for (var i = 0; i < imagesArr.length; i++) {
 				var liElem = $('<li></li>');
 				var vimg = imagesArr[i];
@@ -75,11 +76,12 @@
 					liElem.addClass('first');
 				}
 				imgElem.appendTo(liElem);
-				liElem.appendTo(picUlWrapper);
+				liElem.appendTo(picUl);
 			}
-			
-			picUlWrapper.appendTo(picWrapper);
-			picUlWrapper.clone().appendTo(picNavWrapper);
+			picUl.appendTo(pic);
+			picUl.clone().appendTo(picNav);
+			var picUlWidth = Number(pic.width() * opt.images.length);
+			picUl.css('width', picUlWidth + 'px');
 		},
 		// 手指按下
 		touchstart: function (e) {
@@ -105,9 +107,15 @@
 					that.bannerOrder -= 1;
 				}
 			}
-			that.banner.find('.pic ul li').eq(that.bannerOrder).fadeIn().siblings().fadeOut();
 			that.banner.find('.picnav ul li').eq(that.bannerOrder).addClass('first').siblings().removeClass('first');
+			that.slideAnimate();
 			that.slideParams.flag = false;
+		},
+		// 滑动动画
+		slideAnimate: function () {
+			var that = this;
+			var picUl = that.banner.find('.pic ul');
+			picUl.animate({marginLeft: '-'+ Number(picUl.width() / opt.images.length * (that.bannerOrder)) +'px'}, opt.scrollingSpeed);
 		},
 		// 滑动结束
 		touchend : function (e) {
