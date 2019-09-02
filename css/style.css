@@ -13,13 +13,25 @@ body {
 	height: 430px;
 	margin: 150px auto 0;
 	position: relative;
-	overflow: hidden
+	overflow: hidden;
+	background-color: #fcfcfc;
 }
 
 .banner-wrapper .slide {
 	width: 738px;
 	height: 430px;
 	position: relative
+}
+
+.banner-wrapper .slide-item {
+    width: 100%;
+    height: 100%;
+}
+
+.banner-wrapper .slide-item img{
+	object-fit: contain;
+    width: 100%;
+    height: 100%;
 }
 
 .banner-wrapper .slide ul {
